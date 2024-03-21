@@ -11,40 +11,52 @@ app.use(cors());
 
 //Ex1
 app.get('/llegirImatgesPujol', (res, req) => {
-const readablestream = fs.createReadStream("C:\\UF1_ExamenAaD\\Imatges", {highWaterMark: 4096})
+  const readablestream = fs.createReadStream("C:\\UF1_ExamenAaD\\Imatges", {highWaterMark: 4096})
 
-readablestream.on('data', (chunk) => {
-console.log(chunk)
-})
+  readablestream.on('data', (chunk) => {
+    console.log(chunk)
+  })
 
 //Ex2
 
-app.get('/mostraNomsPujol', (res,req) => {
-  const directoriALlegir = ("C:\\UF1_ExamenAaD")
-  fs.readdir(directoriALlegir, (err, files) => {
-    files.forEach(file => {
-      console.log(file)
+  app.get('/mostraNomsPujol', (res,req) => {
+    const directoriALlegir = ("C:\\UF1_ExamenAaD")
+    fs.readdir(directoriALlegir, (err, files) => {
+      files.forEach(file => {
+        console.log(file)
+      })
     })
   })
-})
 
   //Ex3
 
-app.put('/writeBuffersPujol', (res, req) => {
-const pathSenseBuffers = 'C:\\UF1_ExamenAaD\\Documents'
+  app.put('/writeBuffersPujol', (res, req) => {
+    const pathSenseBuffers = 'C:\\UF1_ExamenAaD\\Documents'
 // const path = 'C:\\UF1_ExamenAaD\\Documents\\Buffers'
-const nomCarpeta = 'Buffers'
-const rutaCompleta = path.join(pathSenseBuffers, nomCarpeta)
+    const nomCarpeta = 'Buffers'
+    const rutaCompleta = path.join(pathSenseBuffers, nomCarpeta)
 
-  if(!fs.existsSync(rutaCompleta)){
-    fs.mkdir(rutaCompleta, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-      console.log('Directori creat a:', rutaCompleta);
-    })
-  }
-})
+    if(!fs.existsSync(rutaCompleta)){
+      fs.mkdir(rutaCompleta, (err) => {
+        if (err) {
+          return console.error(err);
+        }
+        console.log('Directori creat a:', rutaCompleta);
+      })
+    }
+    if (!fs.existsSync(rutaCompleta)){
+      const writeableStream = fs.createWriteStream("C:\\UF1_ExamenAaD\\Documents\\Buffers\\ex4guillempujol.txt")
+      readablestream.on('data', (chunk) => {
+        console.log(chunk)
+      })
+      writeableStream.write('Guillem \n' )
+      writeableStream.write('Pujol\n')
+      writeableStream.end('Fabrega, 21-03-2024')
+    }
+  })
+  app.post('/copiaFitxerPujol', (res,req) => {
+
+  })
 
 
 
@@ -54,4 +66,3 @@ const port = 3030;
 app.listen(port, () => {
   console.log(`El servidor está escoltant per el port ${port}`);
 });
-
