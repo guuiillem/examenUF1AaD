@@ -3,6 +3,7 @@ const app = express();
 const fs = require('fs');
 const cors = require('cors');
 const path = require('node:path');
+const path2 = require('path')
 app.use(express.json());
 app.use(cors());
 
@@ -25,6 +26,24 @@ app.get('/mostraNomsPujol', (res,req) => {
       console.log(file)
     })
   })
+})
+
+  //Ex3
+
+app.put('/writeBuffersPujol', (res, req) => {
+const pathSenseBuffers = 'C:\\UF1_ExamenAaD\\Documents'
+// const path = 'C:\\UF1_ExamenAaD\\Documents\\Buffers'
+const nomCarpeta = 'Buffers'
+const rutaCompleta = path.join(pathSenseBuffers, nomCarpeta)
+
+  if(!fs.existsSync(rutaCompleta)){
+    fs.mkdir(rutaCompleta, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      console.log('Directori creat a:', rutaCompleta);
+    })
+  }
 })
 
 
