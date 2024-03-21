@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const cors = require('cors');
+const path = require('node:path');
 app.use(express.json());
 app.use(cors());
 
@@ -15,8 +16,16 @@ readablestream.on('data', (chunk) => {
 console.log(chunk)
 })
 
+//Ex2
 
-
+app.get('/mostraNomsPujol', (res,req) => {
+  const directoriALlegir = ("C:\\UF1_ExamenAaD")
+  fs.readdir(directoriALlegir, (err, files) => {
+    files.forEach(file => {
+      console.log(file)
+    })
+  })
+})
 
 
 
